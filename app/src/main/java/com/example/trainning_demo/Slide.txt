@@ -1,0 +1,49 @@
+What is a Notification?
+-> So a notification is basically a message that android displays outside of your applications UI
+to provide the user with some kind of reminders in most cases.
+
+Notifications can appear to the users in a different locations and formats like for example as an icon in the status bar:
+
+With the android API level 21 or Android 5.0 we can programmatically set the level of details
+that are visible in the notification on a secure lock screenor whether the notification will
+show up on the lock screen at all.
+
+We can also set the higher importance level for each notification so that wecan display so called
+heads-up notifications that are available only from an API level 21 which is Android 5.0.
+
+Notification Structure?
+The actual layout design of a notification is determined by the Android System Templates and we can
+just use some of those templates to fill in the information. Of course there is always a way to
+customize the notification layout by yourself, and if you are planning to do that then you should
+consider a couple of different things which i am going to talk about in the separate article about
+it. But bottom line it’s always recommended to use a Standard Notification Templates when possible.
+
+@drawble/notification_template
+
+1. Under the number of one we can see an icon and that icon is usually called
+a Small Icon.
+2. Then we have a text that does represent the Application Name itself.
+3. Then we have a Timestamp which is the value provided by the system. And of course we can
+programmatically override that value or even hide it using a setShowWhen() function.
+4. Then after that we have an image or an icon and this icon is called a Large Icon. So this
+element is optional and it’s mostly used to represent a person from your contact list for example
+and you shouldn’t use that large icon to show your application icon or a logo because that would
+violate the userexperience.
+5. Next we can see the Content Title which is also an optional element.
+6. Next we can see the Content Text which is an optional element.
+7.And finally there is a notification button that is called an Action Button
+which is an optional element as well. It’s optimal to have a maximum of
+three action buttons per notification, so be sure to remember that.
+
+
+Notification Channels?
+
+Starting with an API Level of 26 or Android 8.0, all notifications must be assigned to a channel
+or they will not appear.
+In android developer terminology we use a word ‘channel’ while the actual users in their system
+settings see a word ‘category’ or a categories. By categorizing notifications into a channels a
+users can disable specific notification channel for your application instead of disabling all
+your notifications, and the users can control the visual and the auditory options for each channel
+all that from the android system settings.
+For example you can create a notification channel for the news category of your application
+notifications, and then another channel for a reward notifications, and so on…
