@@ -28,7 +28,7 @@ programmatically override that value or even hide it using a setShowWhen() funct
 4. Then after that we have an image or an icon and this icon is called a Large Icon. So this
 element is optional and it’s mostly used to represent a person from your contact list for example
 and you shouldn’t use that large icon to show your application icon or a logo because that would
-violate the userexperience.
+violate the user experience.
 5. Next we can see the Content Title which is also an optional element.
 6. Next we can see the Content Text which is an optional element.
 7.And finally there is a notification button that is called an Action Button
