@@ -1,4 +1,4 @@
-package com.example.trainning_demo;
+package com.example.trainning_demo.recycler_view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Collections;
+import com.example.trainning_demo.R;
+
 import java.util.List;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder>{

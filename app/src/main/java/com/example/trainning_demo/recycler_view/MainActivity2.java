@@ -1,23 +1,17 @@
-package com.example.trainning_demo;
+package com.example.trainning_demo.recycler_view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trainning_demo.recycler_view.ItemTouchedHelperCallback;
-import com.example.trainning_demo.recycler_view.OnTouchListener;
+import com.example.trainning_demo.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.trainning_demo;
+package com.example.trainning_demo.recycler_view;
 
 public class ItemMusic {
     private String name;
