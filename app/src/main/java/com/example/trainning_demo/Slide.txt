@@ -47,3 +47,27 @@ your notifications, and the users can control the visual and the auditory option
 all that from the android system settings.
 For example you can create a notification channel for the news category of your application
 notifications, and then another channel for a reward notifications, and so on…
+
+Notification Importance?
+Android uses the importance of notification to determine how much the notification should interrupt
+the user. The higher the importance of a notification is, the more interrupted the notification
+will be.
+
+On an API Level 26 and higher or Android 8.0 we are specifying notification
+importance within the notification channel and the users can change this importance,
+in the system settings.
+
+Also on the Android API Level 25 and below importance of each notification is determined by the
+notification priority, and there are four different importance
+levels: Urgent, High, Medium and Low.
+
+With the Urgent, notification appear as a heads-up notification and they make a sound.
+
+High importance basically means that notification will make a sound.
+
+Medium importance means that notification will make no sound.
+
+And the Low importance means that notification will have no sound and they will not exist or appear within the status bar.
+
+
+
