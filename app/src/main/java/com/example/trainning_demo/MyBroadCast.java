@@ -8,7 +8,9 @@ import android.util.Log;
 public class MyBroadCast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        int value = intent.getIntExtra("key", 0);
-        Log.d("MyBroadCastReceiver", "action : " + intent.getAction() + " - value : " + value);
+        int value = intent.getIntExtra("key", -1);
+        while (true) {
+            Log.d("MyBroadCastReceiver", "action : " + intent.getAction() + " - value : " + value);
+        }
     }
 }

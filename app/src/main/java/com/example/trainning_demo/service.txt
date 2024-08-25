@@ -1,0 +1,118 @@
+Service được Android giới thiệu là 1 trong 4 Component chính trong Android và Service được dùng để xử lý các tác vụ dài hạn ở dưới nền( background ).
+
+Vậy tại sao chúng ta nên dùng Service ? -> Như anh nói bên trên Dev nên sử dụng Service cho những tác vụ dài hạn such as xử lý các giao dịch với network,
+play music, peform file I/O, hay tương tác với Content Provider -> tất cả đều được thực hiện dưới background.
+
+Có 3 loại service : 
+
+
+1- Foreground Service :
+	+ Loại service này khi chạy thì có thông báo cho người dùng -> khi dùng loại service này chúng ta bắt buộc phải có 1 Notification để thông báo cho user
+	+ Nó nên được chạy ngay cả khi người dùng không tương tác với app của mình
+	+ Nó cũng có vòng đời riêng và không phụ thuộc vào Activity hay Fragment tạo ra nó
+	-> Ví dụ : Music Player App, To do list
+	
+	Note : WorkManager API cung cấp cho chúng ta 1 cách linh hoạt và gần gũi tương tự ForeGround 
+2 - BackGround Service:
+	+ Đây là loại service chạy dưới background nhưng ko cung cấp bất kỳ thông tin nào cho user ( ví dụ như notification)
+	+ Cũng giống như Foreground Service thì background cũng có vòng đời riêng ko phụ thuộc vào component tạo ra nó
+	+ 
+
+START_STICKY
+Mô tả: Khi Service bị hệ thống dừng lại (do thiếu tài nguyên, v.v.), hệ thống sẽ cố gắng khởi động lại Service sau một thời gian và gọi lại onStartCommand() với Intent null. Điều này có nghĩa là Service sẽ tiếp tục chạy, nhưng bạn sẽ cần kiểm tra xem Intent có null không để xử lý thích hợp.
+Ứng dụng: Thường được sử dụng cho các dịch vụ dài hạn, chẳng hạn như phát nhạc hoặc theo dõi vị trí, nơi bạn muốn Service tự động khởi động lại nếu bị dừng.
+java
+Copy code
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+    return START_STICKY;
+}
+2. START_NOT_STICKY
+Mô tả: Khi Service bị hệ thống dừng lại, hệ thống sẽ không cố gắng khởi động lại Service. Service chỉ được khởi động lại nếu có một Intent mới đến.
+Ứng dụng: Thích hợp cho các dịch vụ mà bạn không cần phải tự động khởi động lại nếu chúng bị dừng. Ví dụ: tải xuống một tệp, và nếu dịch vụ bị dừng, bạn sẽ không muốn tiếp tục tải xuống nữa.
+java
+Copy code
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+    return START_NOT_STICKY;
+}
+3. START_REDELIVER_INTENT
+Mô tả: Khi Service bị hệ thống dừng lại, hệ thống sẽ khởi động lại Service và chuyển lại Intent cuối cùng mà dịch vụ nhận được đến onStartCommand(). Điều này đảm bảo rằng Service sẽ không bỏ lỡ bất kỳ Intent nào ngay cả khi nó bị dừng giữa chừng.
+Ứng dụng: Thường được sử dụng trong các trường hợp bạn cần đảm bảo rằng một tác vụ cụ thể phải hoàn thành, ngay cả khi Service bị dừng. Ví dụ: gửi một tin nhắn hoặc tải lên dữ liệu quan trọng.
+java
+Copy code
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+    return START_REDELIVER_INTENT;
+}
+4. START_STICKY_COMPATIBILITY
+Mô tả: Đây là phiên bản cũ hơn của START_STICKY, được sử dụng để duy trì khả năng tương thích với các phiên bản Android cũ. Nó có cách hành xử tương tự như START_STICKY, nhưng có một số khác biệt nhỏ trong việc khởi động lại Service trên các phiên bản Android cũ.
+Ứng dụng: Ít được sử dụng và chỉ cần thiết nếu bạn đang phát triển ứng dụng cho các phiên bản Android rất cũ.
+java
+Copy code
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+    return START_STICKY_COMPATIBILITY;
+}
+5. START_FOREGROUND_SERVICE
+Mô tả: Được giới thiệu từ Android 12 (API level 31), START_FOREGROUND_SERVICE chỉ được sử dụng trong một số tình huống cụ thể và yêu cầu dịch vụ phải chuyển sang chế độ foreground trong vòng 10 giây sau khi bắt đầu.
+Ứng dụng: Thường được sử dụng cho các tác vụ yêu cầu foreground service và cần thiết để tránh bị giết khi chuyển sang nền.
+java
+Copy code
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+    return START_FOREGROUND_SERVICE;
+}
+Tổng kết:
+START_STICKY: Dịch vụ tự khởi động lại với Intent null.
+START_NOT_STICKY: Dịch vụ không tự khởi động lại.
+START_REDELIVER_INTENT: Dịch vụ tự khởi động lại với Intent cuối cùng.
+START_STICKY_COMPATIBILITY: Phiên bản cũ hơn của START_STICKY.
+START_FOREGROUND_SERVICE: Dịch vụ foreground trên Android 12 trở lên.
+Việc lựa chọn loại cờ phù hợp phụ thuộc vào hành vi mong muốn của Service trong ứng dụng của bạn.
+
+
+
+
+
+
+Khi một Service bị hệ thống ngắt và sau đó được khởi động lại, việc tiếp tục công việc từ nơi đã dừng hoặc bắt đầu lại từ đầu sẽ phụ thuộc vào cách bạn thiết kế và lập trình Service của mình. Android không tự động nhớ trạng thái trước đó của Service, do đó bạn cần phải xử lý điều này theo cách thủ công nếu muốn tiếp tục từ nơi đã dừng.
+
+Ví dụ: Phát nhạc
+Giả sử bạn đang xây dựng một ứng dụng phát nhạc. Bạn muốn rằng nếu Service bị dừng giữa chừng, khi nó khởi động lại, nhạc sẽ tiếp tục phát từ vị trí trước đó.
+
+Cách xử lý:
+Lưu trạng thái khi Service bị dừng:
+
+Bạn có thể lưu trữ trạng thái hiện tại của việc phát nhạc (ví dụ: vị trí hiện tại của bài hát) vào SharedPreferences, Database, hoặc File khi Service bị dừng, trong phương thức onDestroy().
+java
+Copy code
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    // Lưu trạng thái hiện tại vào SharedPreferences
+    SharedPreferences prefs = getSharedPreferences("MusicServicePrefs", MODE_PRIVATE);
+    SharedPreferences.Editor editor = prefs.edit();
+    editor.putInt("currentPosition", mediaPlayer.getCurrentPosition());
+    editor.apply();
+}
+Khôi phục trạng thái khi Service khởi động lại:
+
+Khi Service khởi động lại (ví dụ khi onStartCommand() được gọi), bạn có thể kiểm tra xem có trạng thái trước đó đã được lưu không và sử dụng nó để tiếp tục phát nhạc từ vị trí đó.
+java
+Copy code
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+    // Lấy trạng thái đã lưu từ SharedPreferences
+    SharedPreferences prefs = getSharedPreferences("MusicServicePrefs", MODE_PRIVATE);
+    int lastPosition = prefs.getInt("currentPosition", 0);
+
+    // Thiết lập MediaPlayer để tiếp tục phát từ vị trí đã lưu
+    mediaPlayer.seekTo(lastPosition);
+    mediaPlayer.start();
+
+    return START_STICKY;  // Đảm bảo service sẽ tự động khởi động lại nếu bị dừng
+}
+Đảm bảo Service tự khởi động lại:
+
+Sử dụng cờ START_STICKY hoặc START_REDELIVER_INTENT để đảm bảo rằng Service của bạn sẽ tự động khởi động lại nếu bị hệ thống ngắt.

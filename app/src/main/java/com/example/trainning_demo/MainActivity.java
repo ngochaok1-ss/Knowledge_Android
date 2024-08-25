@@ -18,7 +18,7 @@ import com.example.trainning_demo.recycler_view.MainActivity2;
 
 public class MainActivity extends AppCompatActivity {
 
-    AppCompatButton btn_press;
+    AppCompatButton btn_press, btn_start_service, btn_stopService, btn_send;
     BroadcastReceiver receiver;
 //    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
@@ -38,11 +38,37 @@ public class MainActivity extends AppCompatActivity {
 
 
         btn_press = findViewById(R.id.btn_press);
+        btn_start_service = findViewById(R.id.btn_startService);
+        btn_stopService = findViewById(R.id.btn_stopService);
+        btn_send = findViewById(R.id.btn_sendNotification);
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent("action_demo");
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(it);
+            }
+        });
         btn_press.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(MainActivity.this, MainActivity2.class);
                 startActivity(it);
+            }
+        });
+        btn_start_service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(MainActivity.this, MyService.class);
+                it.putExtra("name","Hao");
+                startService(it);
+
+
+            }
+        });
+        btn_stopService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopService(new Intent(MainActivity.this, MyService.class));
             }
         });
     }
